@@ -12,6 +12,7 @@ public class Pokemon {
     public String numero="";
     public String felicidad ="";
     public String experiencia="";
+    public String habitat="";
     
     
     public int generation_id = 0;
