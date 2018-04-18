@@ -27,6 +27,7 @@ public class VentanaPokedex extends javax.swing.JFrame {
     BufferedImage plantilla = null;
     private int contador = 0;
     private int ancho = 200, alto = 200;
+    private int ancho2 = 75, alto2 = 75;
     int total_pokemons = 0;
     // conectamos a la base de datos
 
@@ -45,8 +46,14 @@ public class VentanaPokedex extends javax.swing.JFrame {
     private ImageIcon devuelveElPokemonQueEstaEnLaPosicion (int posicion){
         int columna = posicion / 31;
         int fila = posicion % 31;
-        return ( new ImageIcon(plantilla.getSubimage(fila*96+1, columna*96+1, 96, 96)
+        return ( new ImageIcon(plantilla.getSubimage(fila*96, columna*96, 96, 96)
                 .getScaledInstance(ancho, alto, Image.SCALE_DEFAULT))); 
+    }
+    private ImageIcon devuelveLaEvolucion (int posicion){
+        int columna = posicion / 31;
+        int fila = posicion % 31;
+        return ( new ImageIcon(plantilla.getSubimage(fila*96, columna*96, 96, 96)
+                .getScaledInstance(ancho2, alto2, Image.SCALE_DEFAULT))); 
     }
     
     private void escribeDatos(){
@@ -58,8 +65,9 @@ public class VentanaPokedex extends javax.swing.JFrame {
             jLabel6.setText(p.numero);
             jLabel7.setText("Experiencia: " + p.experiencia + " exp");
             jLabel8.setText("Felicidad: " + p.felicidad);
-            jLabel9.setText("Especie: " + p.species);
+            jLabel9.setText(p.species);
             jLabel10.setText("Habitat: " + p.habitat);
+            jLabel11.setText("Generacion: " + p.generacion);
             
         }
         else {
@@ -93,6 +101,7 @@ public class VentanaPokedex extends javax.swing.JFrame {
                 p.experiencia=resultadoConsulta.getString(18);
                 p.felicidad=resultadoConsulta.getString(19);
                 p.habitat=resultadoConsulta.getString(15);
+                p.generacion=resultadoConsulta.getString(5);
                 
                 listaPokemons.put(resultadoConsulta.getString(1), p);
             }
@@ -102,6 +111,8 @@ public class VentanaPokedex extends javax.swing.JFrame {
         total_pokemons = listaPokemons.size();
         //////////////////////////////////////////////
         jLabel2.setIcon(devuelveElPokemonQueEstaEnLaPosicion(0));
+        escribeDatos();
+        jLabel12.setIcon(devuelveLaEvolucion(1));
         escribeDatos();
     }
 
@@ -124,8 +135,13 @@ public class VentanaPokedex extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,7 +153,7 @@ public class VentanaPokedex extends javax.swing.JFrame {
                 jButton1MousePressed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 50, 20));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 50, 30));
 
         jButton2.setContentAreaFilled(false);
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,42 +161,57 @@ public class VentanaPokedex extends javax.swing.JFrame {
                 jButton2MousePressed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, 50, 20));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 50, 30));
 
-        jLabel1.setFont(new java.awt.Font("High Tower Text", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 450, 120, 50));
 
         jLabel4.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 240, 30));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, 240, 30));
 
         jLabel5.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 190, 230, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 180, 230, 30));
 
         jLabel7.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, 240, 30));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 240, 30));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 210, 170));
 
         jLabel9.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 150, 60));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 450, 110, 50));
 
         jLabel8.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 230, 240, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 240, 30));
 
-        jLabel6.setFont(new java.awt.Font("HP Simplified", 1, 32)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Leelawadee", 1, 24)); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 60, 50));
+
+        jLabel11.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 454, 90, 40));
 
         jLabel10.setFont(new java.awt.Font("Agency FB", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 150, 70));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 240, 30));
+
+        jLabel12.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 60, 50));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 60, 50));
+
+        jPanel4.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel4.setForeground(new java.awt.Color(153, 153, 153));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 50, 80, 70));
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, 250, 120));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, 250, 130));
+
+        jPanel2.setBackground(new java.awt.Color(255, 0, 0));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 90, 20));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pokemon/Imagenes/pokedex1.png"))); // NOI18N
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -192,7 +223,8 @@ public class VentanaPokedex extends javax.swing.JFrame {
         contador--;
         if (contador < 0) {contador = 0;}
         //dibujaElPokemonQueEstaEnLaPosicion(contador);
-        jLabel2.setIcon(devuelveElPokemonQueEstaEnLaPosicion(contador));  
+        jLabel2.setIcon(devuelveElPokemonQueEstaEnLaPosicion(contador)); 
+        jLabel12.setIcon(devuelveLaEvolucion(contador+1));
         escribeDatos();
     }//GEN-LAST:event_jButton1MousePressed
 
@@ -200,6 +232,7 @@ public class VentanaPokedex extends javax.swing.JFrame {
         contador++;
         if (contador > total_pokemons) {contador = 0;}
         jLabel2.setIcon(devuelveElPokemonQueEstaEnLaPosicion(contador));
+        jLabel12.setIcon(devuelveLaEvolucion(contador +1));
         escribeDatos();
     }//GEN-LAST:event_jButton2MousePressed
 
@@ -243,6 +276,8 @@ public class VentanaPokedex extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -252,5 +287,8 @@ public class VentanaPokedex extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }
